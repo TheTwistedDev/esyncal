@@ -21,15 +21,18 @@
     <svelte:fragment slot="pageHeader">
         <AppBar>
             <svelte:fragment slot="lead">
-                <Icon icon={calendarIcon} width="52" height="52" class="ml-8"/>
+                <a href="/" class="flex">
+                    <Icon icon={calendarIcon} width="52" height="52" class="ml-8"/>
+                    <h1 class="h1 ml-4">Esyncal</h1>
+                </a>
             </svelte:fragment>
-            <h1 class="h1 ml-4">Esyncal</h1>
+            
             <svelte:fragment slot="trail">
                 <LightSwitch />
                 <button type="button" class="btn variant-soft-surface"> Log In </button>
-                <button type="button" class="btn variant-filled-surface"> Create Account </button>
+                <button type="button" class="btn variant-filled-surface"> <a href="/auth/sign-up"> Create Account </a> </button>
             </svelte:fragment>
         </AppBar>
     </svelte:fragment>
+    <slot />
 </AppShell>
-<slot />
