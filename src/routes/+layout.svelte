@@ -28,9 +28,7 @@
             </svelte:fragment>
             
             <svelte:fragment slot="trail">
-                <LightSwitch />
-                <button type="button" class="btn variant-soft-surface"> Log In </button>
-                <button type="button" class="btn variant-filled-surface"> <a href="/auth/sign-up"> Create Account </a> </button>
+                <LightSwitch class="mr-8"/>
             </svelte:fragment>
         </AppBar>
     </svelte:fragment>

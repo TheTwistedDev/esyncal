@@ -1,9 +1,9 @@
-import lucia from 'lucia-auth'
+import { lucia } from 'lucia'
 import { drizzle } from 'drizzle-orm/planetscale-serverless'
 import { connect } from '@planetscale/database'
 import { planetscale } from '@lucia-auth/adapter-mysql'
 import { DB_HOST, DB_PASSWORD, DB_USERNAME } from '$env/static/private'
-import { sveltekit } from 'lucia-auth/middleware'
+import { sveltekit } from 'lucia/middleware'
 import { dev } from '$app/environment';
 
 const connection = connect({
@@ -15,13 +15,16 @@ const connection = connect({
 export const db = drizzle(connection)
 
 export const auth = lucia({
-    adapter: planetscale(connection),
+    adapter: planetscale(connection, {
+        user: "auth_user",
+        key: "auth_key",
+        session: "auth_session"
+    }),
     env: dev ? 'DEV' : 'PROD',
     middleware: sveltekit(),
-    transformDatabaseUser: (userData) => {
+    getUserAttributes: (databaseUser) => {
         return {
-            userId: userData.id,
-            username: userData.username
+            username: databaseUser.username,
         }
     }
 })

@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { PageData } from './$types'
   import { superForm } from 'sveltekit-superforms/client'
-  import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte'
+//   import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte'
   import { z } from 'zod'
 
   export let data:PageData
@@ -11,20 +11,29 @@
     email: z.string().email(),
     password: z.string(),
 })
-  // @ts-expect-error
+  
   const { form, errors, enhance, constraints } = superForm(data.form, {
-    taintedMessage: "are you sure you want to leave?",
     clearOnSubmit: 'errors-and-message',
     multipleSubmits: 'prevent',
     validators: schema,
     resetForm: true,
   })
+  function showForm() {
+    
+  }
 </script>
 
+<div id="authoptions" class="flex flex-col gap-4 items-center">
+    <h1 class="h1 text-center mt-8">Create Account</h1>
+
+    <button class="btn variant-filled-primary rounded-md w-fit" on:click={() => showForm()}><p class="h3">Email and Password</p></button>
+    <button class="btn variant-filled-primary rounded-md w-fit"><p class="h3">Google</p></button>
+</div>
+
 <!-- <SuperDebug data={$form} /> -->
-<div>
-    <h1 class="h1 mb-8 ml-auto mr-auto mt-8 w-[25%] text-center"> Create account with email and password </h1>
-    <form method="POST" use:enhance class="flex flex-col mt-8 w-[25%] ml-auto mr-auto variant-glass-surface p-4 rounded-lg gap-8">
+<div id="formdiv" class="hidden">
+    <form method="POST" use:enhance class="flex flex-col mt-20 w-[25%] ml-auto mr-auto variant-glass-surface p-4 rounded-lg gap-8">
+        <h1 class="h1 text-center mt-4 mb-4"> Create account with email and password </h1>
         <label for="username" class="label">
             <span class="h3">User Name:</span>
             <input
@@ -65,9 +74,11 @@
         </label>
     
         <button type="submit" class="btn variant-filled w-[25%] ml-auto mr-auto rounded-md variant-filled-primary"><span class="h3">Submit</span></button>
-        
-    </form>
     
+    </form>
+     
+    
+
     <style>
         .invalid {
             color: red;
@@ -75,4 +86,4 @@
     </style>
 </div>
 
-<a href="/"> Back to Home Page </a>
+<a href="/" class="flex h4"> Back to Home Page </a>
